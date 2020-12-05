@@ -44,15 +44,23 @@ entry3 = tk.Entry(root)
 entryString3 = entry3.get()
 entry3.pack()
 
+tax = tk.Label(root, text="tax (0.1 for 10 %):",height=2, width=50)
+tax.pack()
+entry4 = tk.Entry(root)
+entryString4 = entry4.get()
+entry4.pack()
+
 def profit_calculator():
     global profit
     global bought
     global amountbought
+    global taxes
     
+    taxes=float(entry4.get())
     amountbought=float(entry3.get())
     bought=int(entry.get())
     profit = BTC*amountbought-float(entry.get())*amountbought
-    profittax= profit*0.6
+    profittax= profit*(1-taxes)
     print('Profit:',profit, 'EUR')
     print('Profit after tax:',profittax, 'EUR')
 
@@ -60,13 +68,13 @@ def profit_calculator():
 
 def stop_calculator():
     
-    stop = float(entry2.get())*bought/0.6 + bought
-    profittax= profit*0.6
+    stop = float(entry2.get())*bought/(1-taxes) + bought
+    profittax= profit*(1-taxes)
     print('stop by:',stop, 'EUR')
    
 
 
-minprofit = tk.Label(root, text="minprofit [%] (0.1 for 10 %)",height=2, width=50)
+minprofit = tk.Label(root, text="minprofit (0.1 for 10 %)",height=2, width=50)
 minprofit.pack()
 entry2 = tk.Entry(root)
 entryString2 = entry2.get()
